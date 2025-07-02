@@ -2,7 +2,7 @@
 int main()
 {
     int n;
-    int small,j,i;
+    int small;
     printf("Enter number of elements: ");
     scanf("%d", &n);
      int arr[n];
@@ -12,16 +12,15 @@ int main()
     }
     for(int i=0;i<n;i++)
     {
-        small=i;
+        small=arr[i];
         for(int j=i+1;j<n;j++)
         {
-            if(arr[j]<arr[small]) 
+            if(arr[j]<small)
             {
-                small=j;
+                small=arr[j];
                 int temp=arr[i];
-                arr[i]=arr[small];
-                arr[small]=temp;
-
+                arr[i]=arr[j];
+                arr[j]=temp;
             }
         }
 }
@@ -29,5 +28,5 @@ for(int i=0;i<n;i++)
     {
         printf("%d ", arr[i]);
     }
-    return 0;
+return 0;
 }
