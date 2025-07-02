@@ -12,12 +12,12 @@ int main()
     }
     for(int i=0;i<n;i++)
     {
-        small=arr[i];
+        
         for(int j=i+1;j<n;j++)
         {
-            if(arr[j]<small)
+            if(arr[j]<arr[i])
             {
-                small=arr[j];
+                
                 int temp=arr[i];
                 arr[i]=arr[j];
                 arr[j]=temp;
