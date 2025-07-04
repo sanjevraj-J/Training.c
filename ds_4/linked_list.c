@@ -11,6 +11,7 @@ int main()
     int n;
     printf("Enter the number of nodes: ");
     scanf("%d", &n);
+    
     for(int i=0;i<n;i++)
     {
         createNode = (struct Node*)malloc(sizeof(struct Node));//type casting the malloc to struct Node pointer
@@ -28,7 +29,15 @@ int main()
             new->next = createNode; // Link the new node to the previous node
         }
         new = createNode; // Move new to the current node
+       // Store the data in the array
     }
-    printf("%d", head->next->next->data); // Print the data of the first node
+     struct Node *temp = head;
+     printf("Data in the linked list: ");
+     while(temp != NULL)
+     {
+        printf("%d ", temp->data); // Print the data in the linked list
+        temp = temp->next; // Move to the next node
+     }
+    
     
 } 
