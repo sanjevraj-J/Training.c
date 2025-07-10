@@ -127,6 +127,33 @@ void dispFL()
     }
     printf("\n");
 }
+
+//delete the node
+
+void nodeDel()
+{
+    int dNode;
+    printf("enter the node you want to delete:");
+    scanf("%d",&dNode);
+    struct node* temp =head,*temp1;
+    if(dNode==1)
+    {
+        temp1=temp->next;
+        free(temp);
+        head=temp1;
+    }
+    else
+    {
+        for(int i=1;i<dNode-1 && temp->next!=NULL;i++)
+        {
+            temp=temp->next;
+        }
+        temp->next=temp->next->next;
+        free(temp->next);
+
+
+    }
+}
  
 int main()
 {
@@ -138,6 +165,7 @@ int main()
         printf("3)display from position node\n");
         printf("4)insert node\n");
         printf("5)display first or last node\n");
+        printf("6)delete the node\n");
         printf(" enter the choice: ");
         scanf("%d",&n);
         switch(n)
@@ -156,6 +184,9 @@ int main()
                     break;
             case 5:
                     dispFL();
+                    break;
+            case 6:
+                    nodeDel();
                     break;
         }
     }
