@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 
 int itmid=1;
 
@@ -52,37 +52,78 @@ void displayProduct(struct Product **head)
         temp = temp->next;
     }
 }
-void cart(struct Product **head,struct Product **cartnode)
+void cart(struct Product **head, struct Product **cartnode)
 {
     int Choice;
-    printf("enter the product id to add cart:");
-    scanf("%d",&Choice);
-    *cartnode=(struct Product *)malloc(sizeof(struct Product));
-    struct Product *temp =*head;
-    while(temp != NULL)
+    printf("Enter the product id to add to cart: ");
+    scanf("%d", &Choice);
+
+    struct Product *temp = *head;
+    while (temp != NULL)
     {
-        if(temp->productId == Choice)
+        if (temp->productId == Choice)
         {
-            (*cartnode)->productId = temp->productId;
-            (*cartnode)->quantity = temp->quantity;
+            struct Product *newCartNode = (struct Product *)malloc(sizeof(struct Product));
+            newCartNode->productId = temp->productId;
+            newCartNode->quantity = temp->quantity;
+            strcpy(newCartNode->name, temp->name);
+            newCartNode->next = NULL;
+            if (*cartnode == NULL)
+            {
+                *cartnode = newCartNode;
+            }
+            else
+            {
+                struct Product *cartTemp = *cartnode;
+                while (cartTemp->next != NULL)
+                {
+                    cartTemp = cartTemp->next;
+                }
+                cartTemp->next = newCartNode;
+            }
             printf("Product added to cart successfully\n");
             return;
         }
         temp = temp->next;
-    }   
-
+    }
+    printf("Product ID not found.\n");
 }
+
 void dispCart(struct Product **head, struct Product **cartnode)
 {
     struct Product *temp = *cartnode;
 
     printf("Cart details:\n");
-    while(temp != NULL)
+    if (temp == NULL)
+    {
+        printf("Cart is empty.\n");
+        return;
+    }
+    while (temp != NULL)
     {
         printf("ID: %d\n", temp->productId);
         printf("Quantity: %d\n", temp->quantity);
         printf("Name: %s\n", temp->name);
         temp = temp->next;
+    }
+}
+void cartdelete(struct Product **cartnode)
+{
+    int id;
+    printf("Enter the product ID to remove from cart: ");
+    scanf("%d", &id);   
+  if (*cartnode == NULL)
+    {
+        printf("Cart is empty. No products to remove.\n");
+        return;
+    }
+  if ((*cartnode)->productId == id)
+    {
+        struct Product *temp = *cartnode;
+        *cartnode = (*cartnode)->next;
+        free(temp);
+        printf("Product removed from cart successfully.\n");
+        return;
     }
 }
 int main()
@@ -91,7 +132,7 @@ int main()
     while(1)
     {
         int n;
-        printf("  1)Create New Product\n  2)Display All Product\n 3)add to cart\n 4)display cart\n");
+        printf("  1)Create New Product\n  2)Display All Product\n 3)add to cart\n 4)display cart\n 5)delete from cart\n");
         printf("Enter the Choice: ");
         scanf("%d", &n);
         switch(n)
@@ -111,6 +152,10 @@ int main()
             case 4:{
                dispCart(&head,&cartnode);
                break;
+            }
+            case 5:{
+                cartdelete(&cartnode);
+                break;
             }
         }
     }
