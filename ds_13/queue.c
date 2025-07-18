@@ -7,7 +7,7 @@ void enqueue(int val)
     if(rear == n-1)
     {
         printf("Queue is full\n");
-        return;
+        return; 
     }
     if(front==-1)
     {
