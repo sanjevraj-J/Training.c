@@ -2,15 +2,12 @@
 int size;
 int deque[100];
 int front = -1, rear = -1;
-
 int isFull() {
-    return ((front == 0 && rear == size - 1) || (front == rear + 1));
+    return (((rear+1)%size)) == front;
 }
-
 int isEmpty() {
     return (front == -1);
 }
-
 void insertAtRear(int val) {
     if (isFull()) {
         printf("The Queue is Full\n");
@@ -26,7 +23,6 @@ void insertAtRear(int val) {
     deque[rear] = val;
     printf("Inserted at rear\n");
 }
-
 void insertAtFront(int val) {
     if (isFull()) {
         printf("The Queue is Full\n");
@@ -42,7 +38,6 @@ void insertAtFront(int val) {
     deque[front] = val;
     printf("Inserted at front\n");
 }
-
 void displayQueue() {
     if (isEmpty()) {
         printf("The Queue is Empty\n");
@@ -50,15 +45,12 @@ void displayQueue() {
     }
     printf("Queue: ");
     int i = front;
-    while (1) {
+    while (i != rear) {
         printf("%d ", deque[i]);
-        if (i == rear)
-            break;
         i = (i + 1) % size;
     }
-    printf("\n");
+    printf("%d\n",deque[i]);
 }
-
 void popAtFront() {
     if (isEmpty()) {
         printf("The Queue is Empty\n");
@@ -71,7 +63,6 @@ void popAtFront() {
         front = (front + 1) % size;
     }
 }
-
 void popAtRear() {
     if (isEmpty()) {
         printf("The Queue is Empty\n");
@@ -86,10 +77,9 @@ void popAtRear() {
         rear--;
     }
 }
-
 int main() {
     int n, val;
-    printf("Enter the size ",&size);
+    printf("Enter the size ");
     scanf("%d", &size);
     while (1) {
         printf("\n1) Insert At Rear,2) Insert At Front,3) Display,4) Pop At Front,5) Pop At Rear,6) Exit\nChoose: ");
@@ -99,11 +89,13 @@ int main() {
                 printf("Enter the Value: ");
                 scanf("%d", &val);
                 insertAtRear(val);
+                displayQueue();
                 break;
             case 2:
                 printf("Enter the Value: ");
                 scanf("%d", &val);
                 insertAtFront(val);
+                displayQueue();
                 break;
             case 3:
                 displayQueue();
